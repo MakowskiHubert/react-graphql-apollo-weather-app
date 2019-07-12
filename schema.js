@@ -42,6 +42,18 @@ const RootQuery = new GraphQLObjectType({
 					units: 'metric'
 				}).then(res => res.data.list);
 			}
+		},
+		weather: {
+			type: WeatherBaseType,
+			args: {
+				id: { type: GraphQLInt }
+			},
+			resolve(parent, args) {
+				return weatherApi.getWeather({
+					id: args.id,
+					units: 'metric'
+				}).then(res => res.data);
+			}
 		}
 	}
 });
