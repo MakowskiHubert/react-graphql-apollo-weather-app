@@ -1,13 +1,30 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
-const Wrapper = styled.p`
-  width: 100%;
-  text-align: center;
+import { Weather } from './components/Weather';
+
+const client = new ApolloClient({
+	uri: 'http://localhost:5000/graphql'
+});
+
+const Wrapper = styled.div`
+	height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 export default class App extends Component {
-  render() {
-    return <Wrapper>Styled Weather App</Wrapper>
-  }
+	render() {
+		return (
+			<ApolloProvider client={client}>
+				<Wrapper>
+					<Weather/>
+				</Wrapper>
+			</ApolloProvider>
+		);
+	}
 }
